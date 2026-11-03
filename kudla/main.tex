@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\nirpdftitle}{Unitary Shimura Varieties}
+\usepackage{import}
+\inputfrom{../../notes}{nir}
+\usepackage[backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\setcounter{tocdepth}{2}
+
+\pagestyle{contentpage}
+
+\setlength{\headheight}{13.19003pt}
+% (fancyhdr)	You might also make \topmargin smaller to compensate:
+\addtolength{\topmargin}{-1.19003pt}
+
+\title{Unitary Shimura Varieties}
+\author{Nir Elber}
+\date{Fall 2026}
+\usepackage{graphicx}
+\lhead{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	These are some notes on unitary Shimura varieties and their special cycles.
+\end{abstract}
+
+\tableofcontents
+
+\subfile{subfiles/complex}
+
+% \subfile{subfiles/unitary}
+
+\nirprintbib
+
+\end{document}
