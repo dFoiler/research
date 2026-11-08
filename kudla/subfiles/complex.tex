@@ -5,7 +5,7 @@
 \begin{document}
 
 \section{Complex Analytic Theory}
-In this section, we review generalities on Shimura varieties. Our exposition loosely follows \cite{milne-sv}. Due to impatience, we include no examples during the formalism; we introduce our main example (unitary Shimura varieties) at the end.
+In this section, we review generalities on Shimura varieties. Our exposition loosely follows \cite{milne-sv}. Due to impatience, we include no examples during the formalism. All discussion is very sketchy except in \cref{subsec:shimura-data,subsec:shimura-var}.
 
 \subsection{Hermitian Symmetric Domains}
 Shimura varieties arise as certain nice quotients of Hermitian symmetric domains. We will not actually need to know anything about Hermitian symmetric domains, but they provide some framework for our theory, so we include a brief discussion of them. Let's start with ``domain.''
@@ -252,26 +252,46 @@ Thus, $\Gamma\backslash D$ is a smooth quasi-projective variety. However, as sta
 	Suppose we have a complex algebraic variety $V$ for which $V^{\mathrm{an}}\cong\Gamma\backslash D$. Then this isomorphism descends to an algebraic map $V\to\Gamma\backslash D$ by \Cref{thm:borel}. But this algebraic map is an isomorphism on the analytification, so it is an isomorphism of varieies; namely, we can check that the inverse is also algebraic.
 \end{proof}
 
-\subsection{Shimura Data}
+\subsection{Shimura Data} \label{subsec:shimura-data}
 Even though we have not done the required work to motivate the following definition, we will make it anyway. Roughly speaking, we would like to form a version of \Cref{prop:get-shimura-data} for reductive groups over $\QQ$.
 \begin{notation}
 	We define the \textit{Deligne torus} $\mathbb S$ as $\op{Res}_{\CC/\RR}\mathbb G_{m,\CC}$.
 \end{notation}
 \begin{definition}[Shimura datum]
 	A \textit{Shimura datum} is a pair $(G,X)$ where $G$ is a connected reductive group over $\QQ$ and $X$ is a $G(\RR)$-conjugacy class of homomorphism $h\colon\mathbb S\to G_\RR$ such that
-	\begin{enumerate}[label=(SV\arabic*)]
+	\begin{enumerate}[label=SV\arabic*.]
 		\item for any $h\in X$, the representation $\op{Ad}h\colon\mathbb S\to\op{Lie}G_\RR$ features only the characters $\{z/\overline z,1,\overline z/z\}$,
 		\item for any $h\in X$, $\op{Ad}_{h(i)}$ is a Cartan involution on $G_{\mathrm{ad},\RR}$, and
-		\item $G_{\mathrm{ad}}$ has no $\QQ$-factor on which $h$ is trivial.
+		\item for any $h\in X$, $G_{\mathrm{ad}}$ has no $\QQ$-factor on which $h$ is trivial.
 	\end{enumerate}
 \end{definition}
-\begin{remark}
-	Using the conjugacy action, we may check SV1 on any given $h\in X$. Also, we remark that (SV1) is really a statement about the representation over $\CC$ and should perhaps be viewed as a statement about Hodge structures.
+\begin{remark} \label{rem:check-sv-on-single-h}
+	Using the conjugacy action, we may check SV1--SV3 on any given $h\in X$. Also, we remark that SV1 is really a statement about the representation over $\CC$ and should perhaps be viewed as a statement about Hodge structures.
 \end{remark}
 \begin{remark}
 	Roughly speaking, the present axioms codify \Cref{prop:get-shimura-data} with a suitable deformation to allow $G$ to be reductive instead of semisimple. Notably, taking a ``conjugacy class of homomorphisms'' is motivated by the construction in \Cref{rem:construct-hsd}.
 \end{remark}
-Here is the application of \Cref{prop:get-shimura-data}: $X$ is a union of Hermitian symmetric domains. To begin, let's explain how we pass from the reductive group $G$ to the semisimple group $G_{\mathrm{ad}}$.
+In the sequel, it may be annoying to check SV2, so before going further, we provide a test.
+\begin{definition}[polarization]
+	Fix a real algebraic group $G$, and let $V$ be a finite-dimensional representation. Choose $C\in G(\RR)$ for which $C^2\in Z(G(\RR))$. Then a \textit{polarization} is a $G$-invariant bilinear form $\psi\colon V\times V\to\mathbb G_a$ such that
+	\[\langle v,w\rangle\coloneqq\psi(v,Cw)\]
+	is symmetric and positive-definite.
+\end{definition}
+\begin{lemma} \label{lem:get-sv2}
+	Fix a real algebraic group, and let $V$ be a faithful finite-dimensional representation. Choose $C\in G(\RR)$ for which $C^2\in Z(G(\RR))$. If $V$ admits a polarization, then $\op{ad}_C$ is a Cartan involution.
+\end{lemma}
+\begin{proof}
+	Let $\psi$ be the relevant polarization, and observe that $\psi$ has a unique extension $\widetilde\psi$ to a positive-definite Hermitian pairing on $V(\CC)$. We claim that the pairing
+	\[\widetilde\psi_C\coloneqq\widetilde\psi(v,Cw)\]
+	is a $G^{\op{ad}_C}$-invariant positive-definite Hermitian pairing on $V(\CC)$, which then implies that $G^{\op{ad}_C}$ is compact and thus completes the proof.
+
+	To show the claim, it is enough to show that
+	\[\widetilde\psi_C(gv,(\op{ad}_C\overline g)w)\stackrel?=\widetilde\psi_C(v,w)\]
+	for all $g\in G(\CC)$ and $v,w\in V(\CC)$; this equation unwinds to
+	\[\widetilde\psi(gv,\overline gCw)\stackrel?=\widetilde\psi(v,Cw).\]
+	To show this, note $\psi_\CC$ is $G(\CC)$-invariant, so $\widetilde\psi$ satisfies $\widetilde\psi(gv,\overline gw)=\widetilde\psi(v,w)$, and now the claim follows from a little rearrangement.
+\end{proof}
+We now move towards the application of \Cref{prop:get-shimura-data}: we will show $X$ is a union of Hermitian symmetric domains. To begin, let's explain how we pass from the reductive group $G$ to the semisimple group $G_{\mathrm{ad}}$.
 \begin{lemma} \label{lem:pass-to-adjoint}
 	Fix a Shimura datum $(G,X)$. Define $\overline\cdot$ to be the reduction map $\op{Hom}(\mathbb S,G_\RR)\to\op{Hom}(\mathbb S,G_{\mathrm{ad},\RR})$. Let $\overline X\subseteq\op{Hom}(\mathbb S,G_{\mathrm{ad}})$ be the orbit of the image of $X$ under conjugacy by $G_{\mathrm{ad}}(\RR)$. Then the map $X\to\overline X$ is injective, open, and closed.
 \end{lemma}
@@ -343,7 +363,7 @@ We can even descend this calculation to $\QQ$.
 	\end{itemize}
 \end{proof}
 
-\subsection{Shimura Varieties}
+\subsection{Shimura Varieties} \label{subsec:shimura-var}
 We would now like to use our Shimura data to produce some locally symmetric varieties. We already have (unions of) Hermitian symmetric domains, so we may do this by taking arithmetic quotients.
 \begin{definition}[Shimura variety]
 	Fix a Shimura datum $(G,X)$, and choose a compact open subgroup $K\subseteq G(\AA_\QQ^\infty)$. Then the associated \textit{Shimura variety} is
@@ -393,11 +413,93 @@ While we're here, we give the following piece of functoriality.
 	Let $\varphi\colon(G,X)\to(G',X')$ be a morphism of Shimura data, and suppose $\varphi\colon G\to G'$ is injective. Choose compact open subgroups $K\subseteq G(\AA_\QQ^\infty)$ and $K'\subseteq G'(\AA_\QQ^\infty)$ so that $\op{Sh}_K(G,X)$ and $\op{Sh}_{K'}(G',X')$ are varieties. If $K\subseteq\varphi^{-1}(K')$, then the map $\op{Sh}\varphi\colon\op{Sh}_K(G,X)\to\op{Sh}_{K'}(G',X')$ is finite.
 \end{theorem}
 \begin{proof}
-	Entirely omitted.
+	Entirely omitted.\todo{}
+	% it seems that the main difficulty in Deligne's discussion is injectivity on complex points
+	% in applications, I only need that this map is proper, which I think can be checked topologically
+	% it should be easy to upgrade to finite under these hypotheses by just checking quasi-finiteness separately
 \end{proof}
 \begin{remark}
 	Continue in the context of \Cref{thm:deligne-functoriality}. Given $K'$, it turns out that there is a choice of $K$ for which $\op{Sh}\varphi$ is actually a closed embedding.
 \end{remark}
+Our final topic in this section is a calculation of $\pi_0\op{Sh}_K(G,X)$. The proof of \Cref{prop:shimura-is-locally-symmetric} explains that
+\[\pi_0\op{Sh}_K(G,X)=G(\QQ)_\circ\backslash G(\AA_\QQ^\infty)/K,\]
+so we see that the component group has something to do with class numbers of $G$. (This identification requires choosing a component $X^\circ$.) Our goal is to pass to a calculation with the center of $G$. For simplicity, we will assume that $G^{\mathrm{der}}$ is simply connected; one can frequently achieve this by passing to a cover of $G$. The moral is that strong approximation for $G^{\mathrm{der}}$ means that its class numbers are trivial, so one can pass from computing class numbers for $G$ to class numbers for $G^{\mathrm{ab}}$.
+\begin{notation}
+	Fix a connected reductive group $G$. Let $G\to G^{\mathrm{ab}}$ be the abelianization map, define the subgroup $G^{\mathrm{ab}}(\RR)^\dagger\subseteq G^{\mathrm{ab}}(\RR)$ be the image of $Z(G)(\RR)$. Further, set $G^{\mathrm{ab}}(\QQ)^\dagger\coloneqq G^{\mathrm{ab}}(\QQ)\cap G^{\mathrm{ab}}(\RR)^\dagger$.
+\end{notation}
+The following lemma explains the need for this notation.
+\begin{lemma} \label{lem:compute-g-ab-dagger}
+	Fix a connected reductive group $G$, and suppose $G^{\mathrm{der}}$ is simply connected. Then the image of $G(\QQ)_\circ$ along the abelianization map $G\to G^{\mathrm{ab}}$ is $G^{\mathrm{ab}}(\QQ)^\dagger$.
+\end{lemma}
+\begin{proof}
+	Set $T\coloneqq G^{\mathrm{ab}}$ for brevity. We will show each inclusion separately.
+	\begin{itemize}
+		\item We show $\nu(G(\QQ)_\circ)\subseteq T(\QQ)^\dagger$. In fact, we claim that $G(\RR)_\circ=G^{\mathrm{der}}(\RR)\cdot Z(G)(\RR)$, which will complete this check.
+		% Certainly $Z(G)(\RR)\subseteq G(\RR)_\circ$ because the center vanishes in the adjoint group. Also, $G^{\mathrm{der}}$ being simply connected implies that $G^{\mathrm{der}}(\RR)$ is connected and is thus in $G(\RR)^\circ$ and so in $G(\RR)_\circ$.
+		% It remains to show the reverse inclusion.
+		Let $Z'\subseteq G^{\mathrm{der}}$ be the kernel of the map $G^{\mathrm{der}}\to G_{\mathrm{ad}}$. Note that $Z'$ is also identified with the kernel of the multiplication map $Z(G)\times G^{\mathrm{der}}\to G$, so taking long exact sequences in cohomology produces the following commutative diagram.
+		% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMSJdLFsxLDAsIlonKFxcUlIpIl0sWzIsMCwiWihcXFJSKVxcdGltZXMgR157XFxtYXRocm17ZGVyfX0oXFxSUikiXSxbMywwLCJHKFxcUlIpIl0sWzQsMCwiXFxtYXRocm0gSF4xKFxcQ0MvXFxSUjtaJykiXSxbMCwxLCIxIl0sWzEsMSwiWicoXFxSUikiXSxbNCwxLCJcXG1hdGhybSBIXjEoXFxDQy9cXFJSO1onKSJdLFsyLDEsIkdee1xcbWF0aHJte2Rlcn19KFxcUlIpIl0sWzMsMSwiR197XFxtYXRocm17YWR9fShcXFJSKSJdLFsxLDJdLFsyLDNdLFszLDRdLFswLDFdLFsxLDYsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzUsNl0sWzQsNywiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNiw4XSxbOCw5XSxbOSw3XSxbMyw5XSxbMiw4XV0=&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			1 & {Z'(\RR)} & {Z(\RR)\times G^{\mathrm{der}}(\RR)} & {G(\RR)} & {\mathrm H^1(\CC/\RR;Z')} \\
+			1 & {Z'(\RR)} & {G^{\mathrm{der}}(\RR)} & {G_{\mathrm{ad}}(\RR)} & {\mathrm H^1(\CC/\RR;Z')}
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow[equals, nfold, from=1-2, to=2-2]
+			\arrow[from=1-3, to=1-4]
+			\arrow[from=1-3, to=2-3]
+			\arrow[from=1-4, to=1-5]
+			\arrow[from=1-4, to=2-4]
+			\arrow[equals, nfold, from=1-5, to=2-5]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[from=2-3, to=2-4]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		Because $G^{\mathrm{der}}$ is simply connected, we know $G^{\mathrm{der}}(\RR)$ is connected, so it goes to $G_{\mathrm{ad}}(\RR)^\circ$; because the map $G^{\mathrm{der}}\to G_{\mathrm{ad}}$ is surjective, we conclude that the map $G^{\mathrm{der}}(\RR)\to G_{\mathrm{ad}}(\RR)^\circ$ is surjective.
+
+		We now chase around the diagram: $g\in G(\RR)$ lives in $G(\RR)_\circ$ if and only if it maps to $G_{\mathrm{ad}}(\RR)^\circ$, which is equivalent to being in the image of $G^{\mathrm{der}}(\RR)$, which is equivalent to vanishing in $\mathrm H^1(\CC/\RR;Z')$, which is equivalent to being in the image from $Z(\RR)^\times G^{\mathrm{der}}(\RR)\to G(\RR)$. This is what we wanted!
+
+		\item We show that $\nu(G(\QQ)_\circ)=T(\QQ)^\dagger$. Consider the following commutative diagram of long exact sequences.
+		% https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMSJdLFsxLDAsIkdee1xcbWF0aHJte2Rlcn19KFxcUVEpIl0sWzIsMCwiRyhcXFFRKSJdLFszLDAsIlQoXFxRUSkiXSxbNCwwLCJcXG1hdGhybSBIXjEoXFxRUTtHXntcXG1hdGhybXtkZXJ9fSkiXSxbMCwxLCIxIl0sWzEsMSwiR157XFxtYXRocm17ZGVyfX0oXFxSUikiXSxbMiwxLCJHKFxcUlIpIl0sWzMsMSwiVChcXFJSKSJdLFs0LDEsIlxcbWF0aHJtIEheMShcXFJSO0dee1xcbWF0aHJte2Rlcn19KSJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs1LDZdLFs2LDddLFs3LDhdLFs4LDldLFsxLDYsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzIsNywiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMyw4LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFs0LDldXQ==&macro_url=https%3A%2F%2Fraw.githubusercontent.com%2FdFoiler%2Fnotes%2Fmaster%2Fnir.tex
+		\[\begin{tikzcd}[cramped]
+			1 & {G^{\mathrm{der}}(\QQ)} & {G(\QQ)} & {T(\QQ)} & {\mathrm H^1(\QQ;G^{\mathrm{der}})} \\
+			1 & {G^{\mathrm{der}}(\RR)} & {G(\RR)} & {T(\RR)} & {\mathrm H^1(\RR;G^{\mathrm{der}})}
+			\arrow[from=1-1, to=1-2]
+			\arrow[from=1-2, to=1-3]
+			\arrow[hook, from=1-2, to=2-2]
+			\arrow[from=1-3, to=1-4]
+			\arrow[hook, from=1-3, to=2-3]
+			\arrow[from=1-4, to=1-5]
+			\arrow[hook, from=1-4, to=2-4]
+			\arrow[from=1-5, to=2-5]
+			\arrow[from=2-1, to=2-2]
+			\arrow[from=2-2, to=2-3]
+			\arrow[from=2-3, to=2-4]
+			\arrow[from=2-4, to=2-5]
+		\end{tikzcd}\]
+		In fact, because $G^{\mathrm{der}}$ is semisimple and simply connected, the rightmost arrow is also injective.
+		
+		We now diagram-chase. Given $t\in T(\QQ)^\dagger$, we know $t$ is the image of some $z\in Z(G)(\RR)$. Because $z\in G(\RR)$, we see $t$ vanishes in $\mathrm H^1(\RR;G^{\mathrm{der}})$ by exactness, so $t$ vanishes in $\mathrm H^1(\QQ;G^{\mathrm{der}})$ by the aforementioned injectivity. Thus, $t$ is also the image of some $g\in G(\QQ)$.
+		
+		We will be done as soon as we show $g\in G(\QQ)_\circ$. By the previous point, it is enough to check that $g\in G^{\mathrm{der}}(\RR)\cdot Z(G)(\RR)$. Well, $gz^{-1}$ vanishes in $T(\RR)$, so $gz^{-1}\in G^{\mathrm{der}}(\RR)$, so the claim follows.
+		\qedhere
+	\end{itemize}
+\end{proof}
+\begin{proposition}
+	Fix a connected reductive group $G$, and suppose $G^{\mathrm{der}}$ is simply connected. For any compact open subgroup $K\subseteq G(\AA_\QQ^\infty)$, the map $G\to G^{\mathrm{ab}}$ induces an isomorphism
+	\[G(\QQ)_\circ\backslash G(\AA_\QQ^\infty)/K\to G^{\mathrm{ab}}(\QQ)^\dagger\backslash G^{\mathrm{ab}}(\AA_\QQ^\infty)/\nu(K).\]
+\end{proposition}
+\begin{proof}
+	For brevity, set $T\coloneqq G^{\mathrm{ab}}$. Here are our checks.
+	\begin{itemize}
+		\item The map is well-defined by \Cref{lem:compute-g-ab-dagger}.
+		\item Surjective: note that $\nu$ is a smooth surjection with geometrically connected fibers (which look like $G^{\mathrm{der}}$), so $\nu\colon G(\AA_\QQ^\infty)\to T(\AA_\QQ^\infty)$ is open. Thus, surjectivity follows because $G(\QQ_p)\to T(\QQ_p)$ is surjective for all primes $p$: indeed, $\mathrm H^1(\QQ_p;G^{\mathrm{der}})=0$ (which holds because $G^{\mathrm{der}}$ is semisimple and simply connected).
+		\item Injective: if $g_1$ and $g_2$ have the same image in $T(\QQ)^\dagger\backslash T(\AA_\QQ^\infty)/\nu(K)$, modify by $g_2$ by $K$ on the right to get the same image in $T(\QQ)^\dagger\backslash T(\AA_\QQ^\infty)$, and then modify $g_2$ by $G(\QQ)_\circ$ on the left to get the same image in $T(\AA_\QQ^\infty)$. Then $G^{\mathrm{der}}(\AA_\QQ^\infty)g_1=G^{\mathrm{der}}(\AA_\QQ^\infty)g_2$, and we are done because $G^{\mathrm{der}}(\AA_\QQ^\infty)\subseteq G(\QQ)_\circ\cdot g_2Kg_2^{-1}$: indeed,
+		\[G^{\mathrm{der}}(\AA_\QQ^\infty)=G^{\mathrm{der}}(\QQ)\left(g_2Kg_2^{-1}\cap G^{\mathrm{der}}(\AA_\QQ^\infty)\right)\]
+		by strong approximation for $G^{\mathrm{der}}$.
+		\qedhere
+	\end{itemize}
+\end{proof}
 % \begin{remark}
 % 	This is a slightly confusing quotient to form. One (indirect) reason to do this is that these complex manifolds will desecend to algebraic varieties over rather small number fields. A more direct reason is that we would like to write down quotients of the form $\Gamma\backslash X$ where $\Gamma$
 % \end{remark}
